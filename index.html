@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Education Loan EMIs Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+  }
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+
+  header h1 span {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  header h1:hover span {
+    transform: translateY(-5px);
+  }
+
+  header h1 span:hover {
+    color: crimson;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+  }
+
+  .input-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .input-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  .btn {
+    background-color: crimson;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .btn:hover {
+    background-color: darkred;
+  }
+
+  #result {
+    margin-top: 20px;
+    font-size: 18px;
+  }
+</style>
+</head>
+<body>
+                          
+<div class="container">
+  <h2>Education Loan EMIs Calculator</h2>
+  <div class="input-group">
+    <label for="loanAmount">Loan Amount (INR):</label>
+    <input type="number" id="loanAmount" placeholder="Enter loan amount">
+  </div>
+  <div class="input-group">
+    <label for="courseDuration">Course Duration (Months):</label>
+    <input type="number" id="courseDuration" placeholder="Enter course duration">
+  </div>
+  <div class="input-group">
+    <label for="loanTenure">Loan Tenure (Years):</label>
+    <input type="number" id="loanTenure" placeholder="Enter loan tenure">
+  </div>
+  <div class="input-group">
+    <label for="interestRate">Rate of Interest (%):</label>
+    <input type="number" id="interestRate" placeholder="Enter rate of interest">
+  </div>
+  <div class="input-group">
+    <label for="gracePeriod">Grace Period (Months):</label>
+    <input type="number" id="gracePeriod" placeholder="Enter grace period">
+  </div>
+  <button class="btn" onclick="calculateEMI()">Calculate EMI</button>
+  <div id="result"></div>
+</div>
+
+<script>
+  function calculateEMI() {
+    var loanAmount = parseFloat(document.getElementById('loanAmount').value);
+    var courseDuration = parseInt(document.getElementById('courseDuration').value);
+    var loanTenure = parseInt(document.getElementById('loanTenure').value);
+    var interestRate = parseFloat(document.getElementById('interestRate').value);
+    var gracePeriod = parseInt(document.getElementById('gracePeriod').value);
+
+    var monthlyInterestRate = (interestRate / 100) / 12;
+    var totalMonths = courseDuration + gracePeriod;
+    var monthlyEMI = (loanAmount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -totalMonths));
+    var totalEMI = monthlyEMI * totalMonths;
+
+    document.getElementById('result').innerHTML = "Monthly EMI: INR " + monthlyEMI.toFixed(2) + "<br>Total Payable: INR " + totalEMI.toFixed(2);
+  }
+</script>
+
+</body>
+</html>
